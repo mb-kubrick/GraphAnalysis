@@ -1,59 +1,41 @@
-CREATE (caesar:Person {name: 'Julius Caesar', title: 'General and Politician'})
-CREATE (cicero:Person {name: 'Cicero', title: 'Orator and Philosopher'})
-CREATE (pompey:Person {name: 'Pompey the Great', title: 'Military Commander'})
-CREATE (crassus:Person {name: 'Crassus', title: 'Wealthy Politician'})
-CREATE (cato:Person {name: 'Cato the Younger', title: 'Stoic Philosopher'})
-CREATE (brutus:Person {name: 'Brutus', title: 'Conspirator'})
-CREATE (antony:Person {name: 'Mark Antony', title: 'General and Politician'})
-CREATE (augustus:Person {name: 'Augustus', title: 'First Roman Emperor'})
-CREATE (livy:Person {name: 'Livy', title: 'Historian'})
-CREATE (maecenas:Person {name: 'Maecenas', title: 'Advisor and Patron'})
-CREATE (agrippa:Person {name: 'Agrippa', title: 'General and Close Associate'})
-CREATE (tiberius:Person {name: 'Tiberius', title: 'Second Roman Emperor'})
-CREATE (germanicus:Person {name: 'Germanicus', title: 'General and Statesman'})
-CREATE (varus:Person {name: 'Publius Quinctilius Varus', title: 'Roman General'})
-CREATE (arminius:Person {name: 'Arminius', title: 'Chieftain of the Cherusci'})
-CREATE (cleopatra:Person {name: 'Cleopatra', title: 'Queen of Egypt'})
+WITH
+$player_names AS players,
+$positions AS positions,
+$ages AS ages,
+$origin_clubs AS origin_clubs,
+$league_origin_clubs AS league_origin_clubs,
+$country_origin_clubs AS country_origin_clubs,
+$new_clubs AS new_clubs,
+$league_new_clubs AS league_new_clubs,
+$country_new_clubs AS country_new_clubs
 
-CREATE (caesar)-[:ALLIANCE]->(pompey)
-CREATE (caesar)-[:ALLIANCE]->(crassus)
-CREATE (caesar)-[:RIVAL]->(cicero)
-CREATE (pompey)-[:RIVAL]->(cicero)
-CREATE (cato)-[:RIVAL]->(caesar)
-CREATE (cicero)-[:ALLY]->(augustus)
-CREATE (cicero)-[:RIVAL]->(antony)
-CREATE (antony)-[:RIVAL]->(augustus)
-CREATE (antony)-[:ALLIANCE]->(augustus)
-CREATE (brutus)-[:CONSPIRATOR]->(caesar)
-CREATE (brutus)-[:ALLY]->(cato)
+UNWIND range(0, size(players) - 1) AS index
 
-CREATE (augustus)-[:ALLY]->(livy)
-CREATE (augustus)-[:PATRON]->(maecenas)
-CREATE (augustus)-[:ALLY]->(agrippa)
-CREATE (augustus)-[:SUCCESSOR]->(tiberius)
-CREATE (tiberius)-[:ADOPTED_BY]->(augustus)
+// DEFINE NODES
+MERGE (player:Player {name: players[index], age: ages[index]})
+MERGE (position:Position {name: positions[index]})
+MERGE (origin_club:Club {name: origin_clubs[index]})
+MERGE (league_origin_club:League {name: league_origin_clubs[index]})
+MERGE (country_origin_club:Country {name: country_origin_clubs[index]})
+MERGE (new_club:Club {name: new_clubs[index]})
+MERGE (league_new_club:League {name: league_new_clubs[index]})
+MERGE (country_new_club:Country {name: country_new_clubs[index]})
 
-CREATE (germanicus)-[:ALLY]->(tiberius)
-CREATE (germanicus)-[:COMMANDER]->(varus)
-CREATE (varus)-[:DEFEATED_BY]->(arminius)
+// DEFINE CONNECTIONS
+MERGE (player)-[:PLAYS_AS]->(position)
+MERGE (player)-[:PLAYED_FOR]->(origin_club)
+MERGE (player)-[:PLAYED_IN]->(league_origin_club)
+MERGE (player)-[:PLAYED_IN]->(country_origin_club)
+MERGE (player)-[:PLAYS_FOR]->(new_club)
+MERGE (player)-[:PLAYS_IN]->(league_new_club)
+MERGE (player)-[:PLAYS_IN]->(country_new_club)
 
-CREATE (cleopatra)-[:ALLY]->(caesar)
-CREATE (cleopatra)-[:ROMANTIC]->(antony)
-CREATE (cleopatra)-[:ALLY]->(antony)
-CREATE (antony)-[:DEFEATED_BY]->(augustus)
+MERGE (origin_club)-[:PART_OF]->(league_origin_club)
+MERGE (origin_club)-[:WITHIN]->(country_origin_club)
 
-// New relationships
-MERGE (caesar)-[:RIVAL]->(pompey)
-MERGE (caesar)<-[:ROMANTIC]-(cleopatra)
-MERGE (augustus)<-[:DEFEATED_BY]-(cleopatra)
+MERGE (new_club)-[:PART_OF]->(league_new_club)
+MERGE (new_club)-[:WITHIN]->(country_new_club)
 
-// Add campaigns
-CREATE (campaign1:Campaign {name: 'Gaul Campaign', type: 'conquest', year: -58})
-CREATE (campaign2:Campaign {name: 'Parthian Campaign', type: 'conquest', year: -53})
-CREATE (campaign3:Campaign {name: 'Germanic Campaign', type: 'conquest', year: -15})
-CREATE (campaign4:Campaign {name: 'Egyptian Campaign', type: 'conquest', year: -30})
-
-MERGE (caesar)-[:LED]->(campaign1)
-MERGE (crassus)-[:LED]->(campaign2)
-MERGE (germanicus)-[:LED]->(campaign3)
-MERGE (cleopatra)-[:LED]->(campaign4)
+MERGE (league_origin_club)-[:WITHIN]->(country_origin_club)
+MERGE (league_new_club)-[:WITHIN]->(country_new_club)
+;

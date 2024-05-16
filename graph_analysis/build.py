@@ -3,14 +3,30 @@ import json
 from dotenv import load_dotenv
 from neo4j import GraphDatabase
 
-def build_graph(driver, raw_data):
-    file_path = os.getcwd() + '/graph_analysis/cypher/build.cypher'
+def build_graph(driver, raw_data, n_items = 100):
 
-    with open(file_path, "r", encoding='utf-8') as file:
-        query = file.read()
+    folder_path = os.getcwd() + '/graph_analysis/cypher/'
+    file_names = ['clean_database.cypher', 'build.cypher']
 
-    with driver.session() as session:
-        result = session.run(query)
+    params_per_file = [{},
+                       {'player_names': raw_data['name'][:n_items],
+                        'positions': raw_data['position'][:n_items],
+                        'ages': raw_data['age'][:n_items],
+                        'origin_clubs': raw_data['origin_club'][:n_items],
+                        'league_origin_clubs': raw_data['league_origin_club'][:n_items],
+                        'country_origin_clubs': raw_data['country_origin_club'][:n_items],
+                        'new_clubs': raw_data['new_club'][:n_items],
+                        'league_new_clubs': raw_data['league_new_club'][:n_items],
+                        'country_new_clubs': raw_data['country_new_club'][:n_items],
+                        'player_names': raw_data['name'][:n_items],
+                        }]
+
+    for file_name, params in zip(file_names, params_per_file):
+        with open(folder_path + file_name, "r", encoding='utf-8') as file:
+            query = file.read()
+
+        with driver.session() as session:
+            result = session.run(query, **params)
 
 def set_driver():
     """Defines the Neo4j Connection driver.
@@ -33,7 +49,9 @@ def read_data():
     file_path = os.getcwd() + '/data/Summer22_FootballTransfers.json'
 
     with open(file_path, "r", encoding='utf-8') as file:
-        return json.load(file)
+        data = json.load(file)
+
+    return data
 
 def connection_test(driver):
     try:
