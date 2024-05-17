@@ -34,9 +34,9 @@ def run_similarity(players, driver) -> str:
             result = session.run(query, **params).data()
 
     try:
-        player_similarity = result[0]['similarity']
+        player_similarity = str(result[0]['similarity'])
     except IndexError:
-        player_similarity = 0
+        player_similarity = "0"
 
 
     return (f"\nThe jaccard similarity between '{player_1}' and '{player_2}' is: "
