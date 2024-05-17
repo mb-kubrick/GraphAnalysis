@@ -1,2 +1,2 @@
-CALL gds.graph.drop('FootballTransfers', False)
+CALL gds.graph.drop('ClubsTransfers', False)
 YIELD graphName;

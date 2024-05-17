@@ -42,7 +42,7 @@ def read_data():
 
 def build_graph(driver, raw_data, n_items = 100):
     """Builds the graph from the supplied JSON data."""
-    folder_path = os.getcwd() + '/graph_analysis/cypher/'
+    folder_path = r'C:/Football Exercise/GraphAnalysis/graph_analysis/cypher/'
     file_names = ['clean_database.cypher', 'build.cypher']
 
     params_per_file = [{},
