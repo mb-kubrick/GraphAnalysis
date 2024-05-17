@@ -1,0 +1,30 @@
+import os
+from dotenv import load_dotenv
+from langchain_community.graphs import Neo4jGraph
+from langchain_openai import AzureChatOpenAI, AzureOpenAIEmbeddings
+from langchain_community.vectorstores import DocArrayInMemorySearch
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.runnables import RunnableParallel, RunnablePassthrough
+from langchain.chains import GraphCypherQAChain
+from langchain_openai import AzureChatOpenAI
+
+_ = load_dotenv()
+api_key = os.getenv("AZURE_OPENAI_KEY")
+api_version = os.getenv("AZURE_OPENAI_VERSION")
+api_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
+neo_url = os.getenv("URL")
+neo_username = os.getenv("NEO4J_USERNAME")
+neo_password = os.getenv("NEO4J_PASSWORD")
+
+
+graph = Neo4jGraph(url=neo_url, username=neo_username, password=neo_password)
+graph.refresh_schema()
+print(graph.schema)
+
+model = AzureChatOpenAI(model="genai00-gpt-35-turbo-0613", api_key=api_key, api_version=api_version)
+print(model)
+
+chain = GraphCypherQAChain.from_llm(graph=graph, llm=model, verbose=True)
+response = chain.invoke({"query": "Who does Wout Faes play for?"})
+print(response['result'])

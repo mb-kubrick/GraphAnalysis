@@ -19,7 +19,7 @@ def main() -> None:
     players = build_graph(driver, raw_data)
     # louvain_result = run_louvain(graph)
     print(run_similarity(players, driver))
-    # print(run_dijkstra(players, driver))
+    print(run_dijkstra(players, driver))
     close_driver(driver)
 
 if __name__ == "__main__":
