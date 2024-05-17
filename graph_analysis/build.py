@@ -64,3 +64,5 @@ def build_graph(driver, raw_data, n_items = 100):
 
         with driver.session() as session:
             result = session.run(query, **params)
+    
+    return raw_data['name'][:n_items]

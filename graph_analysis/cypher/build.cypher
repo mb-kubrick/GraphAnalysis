@@ -22,20 +22,20 @@ MERGE (league_new_club:League {name: league_new_clubs[index]})
 MERGE (country_new_club:Country {name: country_new_clubs[index]})
 
 // DEFINE CONNECTIONS
-MERGE (player)-[:PLAYS_AS]->(position)
-MERGE (player)-[:PLAYED_FOR]->(origin_club)
-MERGE (player)-[:PLAYED_IN]->(league_origin_club)
-MERGE (player)-[:PLAYED_IN]->(country_origin_club)
-MERGE (player)-[:PLAYS_FOR]->(new_club)
-MERGE (player)-[:PLAYS_IN]->(league_new_club)
-MERGE (player)-[:PLAYS_IN]->(country_new_club)
+MERGE (player)-[:PLAYS_AS {distance: 1}]->(position)
+MERGE (player)-[:PLAYED_FOR {distance: 1}]->(origin_club)
+MERGE (player)-[:PLAYED_IN {distance: 1}]->(league_origin_club)
+MERGE (player)-[:PLAYED_IN {distance: 1}]->(country_origin_club)
+MERGE (player)-[:PLAYS_FOR {distance: 1}]->(new_club)
+MERGE (player)-[:PLAYS_IN {distance: 1}]->(league_new_club)
+MERGE (player)-[:PLAYS_IN {distance: 1}]->(country_new_club)
 
-MERGE (origin_club)-[:PART_OF]->(league_origin_club)
-MERGE (origin_club)-[:WITHIN]->(country_origin_club)
+MERGE (origin_club)-[:PART_OF {distance: 1}]->(league_origin_club)
+MERGE (origin_club)-[:WITHIN {distance: 1}]->(country_origin_club)
 
-MERGE (new_club)-[:PART_OF]->(league_new_club)
-MERGE (new_club)-[:WITHIN]->(country_new_club)
+MERGE (new_club)-[:PART_OF {distance: 1}]->(league_new_club)
+MERGE (new_club)-[:WITHIN {distance: 1}]->(country_new_club)
 
-MERGE (league_origin_club)-[:WITHIN]->(country_origin_club)
-MERGE (league_new_club)-[:WITHIN]->(country_new_club)
+MERGE (league_origin_club)-[:WITHIN {distance: 1}]->(country_origin_club)
+MERGE (league_new_club)-[:WITHIN {distance: 1}]->(country_new_club)
 ;
