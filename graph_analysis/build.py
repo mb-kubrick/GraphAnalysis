@@ -33,7 +33,7 @@ def close_driver(driver):
     driver.close()
 
 def read_data():
-    file_path = r'C:\Football Exercise\GraphAnalysis\data\Summer22_FootballTransfers.json'
+    file_path = r'C:/Users/KiranHosein/Desktop/GraphProj/GraphAnalysis/data/Summer22_FootballTransfers.json'
 
     with open(file_path, "r", encoding='utf-8') as file:
         data = json.load(file)
@@ -42,7 +42,7 @@ def read_data():
 
 def build_graph(driver, raw_data, n_items = 100):
     """Builds the graph from the supplied JSON data."""
-    folder_path = r'C:/Football Exercise/GraphAnalysis/graph_analysis/cypher/'
+    folder_path = r'C:/Users/KiranHosein/Desktop/GraphProj/GraphAnalysis/graph_analysis/cypher/'
     file_names = ['clean_database.cypher', 'build.cypher']
 
     params_per_file = [{},

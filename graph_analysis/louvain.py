@@ -2,7 +2,7 @@ import os
 def run_louvain(driver):
     """Builds the graph from the supplied JSON data."""
     file_names = ['louvain_clean.cypher', 'louvain_call.cypher', 'louvain_run.cypher']
-    folder_path = os.getcwd() + '/GraphAnalysis/graph_analysis/cypher/'
+    folder_path = r'C:/Users/KiranHosein/Desktop/GraphProj/GraphAnalysis/graph_analysis/cypher/'
     # file_names = ['clean_database.cypher', 'build.cypher']
     for file_name in file_names:
         with open(folder_path + file_name, "r", encoding='utf-8') as file:
