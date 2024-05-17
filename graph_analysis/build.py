@@ -33,7 +33,7 @@ def close_driver(driver):
     driver.close()
 
 def read_data():
-    file_path = os.getcwd() + '/data/Summer22_FootballTransfers.json'
+    file_path = r'C:\Football Exercise\GraphAnalysis\data\Summer22_FootballTransfers.json'
 
     with open(file_path, "r", encoding='utf-8') as file:
         data = json.load(file)
