@@ -5,8 +5,9 @@
 import argparse
 
 from louvain import run_louvain
-from similarity import run_similarity
 from dijkstra import run_dijkstra
+from similarity import run_similarity
+from llm_rag import run_llm_graph_rag
 from build import set_driver, close_driver, build_graph, read_data, connection_test
 
 # MAIN APP -------------------------------------------------------------------------------------------------------------
@@ -20,6 +21,7 @@ def main() -> None:
     # louvain_result = run_louvain(graph)
     print(run_similarity(players, driver))
     print(run_dijkstra(players, driver))
+    print(run_llm_graph_rag(query='Who does Wout Faes play for?'))
     close_driver(driver)
 
 if __name__ == "__main__":
