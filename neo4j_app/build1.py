@@ -33,7 +33,7 @@ def close_driver(driver):
     driver.close()
 
 def read_data():
-    file_path = "C:\Bench\GenAi_training\GraphAnalysis\\neo4j_app\Summer22_FootballTransfers.json"
+    file_path = os.getcwd() + '/Summer22_FootballTransfers.json'
 
     with open(file_path, "r", encoding='utf-8') as file:
         data = json.load(file)

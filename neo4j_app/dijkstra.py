@@ -20,7 +20,7 @@ def run_dijkstra(players, driver) -> str:
 
     player_1, player_2 = np.random.choice(players, replace=False, size=2)
 
-    folder_path = os.getcwd() + '/graph_analysis/cypher/'
+    folder_path = os.getcwd() + '/cypher/'
 
     file_names = ['dijkstra_clean.cypher', 'dijkstra_build.cypher', 'dijkstra_call.cypher']
     all_params = [{}, {}, {'player_1_name': player_1, 'player_2_name': player_2}]
@@ -35,5 +35,5 @@ def run_dijkstra(players, driver) -> str:
 
     raw_path_data = result[0]['path']
 
-    return (f"\nThe shortest connection from '{player_1}' to '{player_2}' is:"
+    return (f"\nThe shortest connection from '{player_2}' to '{player_1}' is:"
             + f"\n{' -> '.join([i['name'] for i in raw_path_data])}\n")

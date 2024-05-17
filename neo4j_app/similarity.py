@@ -20,7 +20,7 @@ def run_similarity(players, driver) -> str:
 
     player_1, player_2 = np.random.choice(players, replace=False, size=2)
 
-    folder_path = os.getcwd() + '/graph_analysis/cypher/'
+    folder_path = os.getcwd() + '/cypher/'
 
     file_names = ['similarity_clean.cypher', 'similarity_build.cypher', 'similarity_call.cypher']
     all_params = [{}, {}, {'player_1_name': player_1, 'player_2_name': player_2}]
@@ -39,5 +39,5 @@ def run_similarity(players, driver) -> str:
         player_similarity = "0"
 
 
-    return (f"\nThe jaccard similarity between '{player_1}' and '{player_2}' is: "
+    return (f"\nThe Jaccard Similarity between '{player_1}' and '{player_2}' is: "
             + f"{player_similarity}")
