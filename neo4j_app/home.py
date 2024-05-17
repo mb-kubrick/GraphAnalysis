@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 from main import main
 from build1 import set_driver
 from neo4j import GraphDatabase
@@ -8,7 +9,9 @@ from dijkstra import run_dijkstra
 from build1 import set_driver, close_driver, build_graph, read_data, connection_test
 import pandas as pd
 
-data = pd.read_csv(r"C:\Bench\GenAi_training\GraphAnalysis\neo4j_app\Summer22_FootballTransfers.csv")
+file_path = os.getcwd() + '/Summer22_FootballTransfers.csv'
+data = pd.read_csv(file_path)
+
 st.write(data['name'])
 
 player1 = st.selectbox('Select your first player', data['name'])

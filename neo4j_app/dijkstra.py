@@ -35,5 +35,5 @@ def run_dijkstra(players, driver) -> str:
 
     raw_path_data = result[0]['path']
 
-    return (f"\nThe shortest connection from '{player_2}' to '{player_1}' is:"
+    return (f"\nThe shortest connection from '{player_1}' to '{player_2}' is:"
             + f"\n{' -> '.join([i['name'] for i in raw_path_data])}\n")
