@@ -1,6 +1,5 @@
 import streamlit as st
-from dijkstra import run_dijkstra
+from main import main
 
-st.balloons()
-st.write('hi')
-st.text_box()
+st.write(main())
+
