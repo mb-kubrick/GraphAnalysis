@@ -13,6 +13,16 @@ st.header("Summer 2022 Football Transfer ⚽")
 st.write("<span style='font-style: italic;'>Pod 1</span>", unsafe_allow_html=True)
 file_path = os.getcwd() + '/Summer22_FootballTransfers.csv'
 data = pd.read_csv(file_path)
+st.write(data)
+
+unique_countries = pd.unique(data[['country_origin_club', 'country_new_club']].values.ravel('K'))
+unique_counties = pd.DataFrame(unique_countries, columns=['Country'])
+st.write(unique_countries)
+
+countries_with_long_lat = pd.read_csv(os.getcwd() + '/countries_with_longlat.csv',)
+countries_df = unique_countries.merge(countries_with_long_lat, on='name', how='left')
+st.write(countries_with_long_lat)
+
 
 player1 = st.selectbox('Select your first player', data['name'])
 player2 = st.selectbox('Select your second player', data['name'])
