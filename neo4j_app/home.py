@@ -14,7 +14,9 @@ st.write("<span style='font-style: italic;'>Fahima Ahmed, Michael Berney, Mak De
 
 st.markdown(
     """
-    The data was downloaded from this Kaggle dataset: [Football Summer Market 2022](https://www.kaggle.com/datasets/davidmolina/football-summer-market-2022) 
+    The data was downloaded from this Kaggle dataset: [Football Summer Market 2022](https://www.kaggle.com/datasets/davidmolina/football-summer-market-2022)
+    
+    ⚠️Reasons for why we chose this dataset: ⚠️
     
     We decided to focus on the following algorithms:
     
