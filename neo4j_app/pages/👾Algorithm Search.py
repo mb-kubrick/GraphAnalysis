@@ -12,9 +12,11 @@ data = pd.read_csv(file_path)
 
 
 st.subheader("Algorithm Search")
+st.write("Disclaimer: only displays results for a certain number of players")
+
 player1 = st.selectbox('Select your first player', data['name'], placeholder='Choose player')
 player2 = st.selectbox('Select your second player', data['name'], placeholder='Choose player')
 
-if player1 and player2:
-    st.write(run_dijkstra(players=[player1, player2], driver=set_driver()))
-    st.write(run_similarity(players=[player1, player2], driver=set_driver()))
+st.write(run_dijkstra(players=[player1, player2], driver=set_driver()))
+st.write(run_similarity(players=[player1, player2], driver=set_driver()))
+
